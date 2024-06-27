@@ -670,27 +670,29 @@ def plot_comp_acc_simple(steps=50, gen=True):
     print(f"W: {w_frac[0]}")
     print(f"W': {wp_frac[0]}")
 
-    # plot
+    # we make 4 plots: 1+2 with labels, 1+2 without labels, 1 with labels, 1 without labels
+    colorblind_palette = ['#377eb8', '#ff7f00', '#4daf4a', '#f781bf', '#a65628']
+
     fig, ax = plt.subplots(1, 2, figsize=(10,5))
-    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5, choice 1', color='blue')
-    ax[1].plot(conc_threshold_ls, nn5_acc_2, label='NN5, choice 1+2', color='blue', linestyle='--')
-    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color='red')
-    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color='gold')
-    ax[1].plot(conc_threshold_ls, bl_acc_2, label='NN2, choice 1+2', color='gold', linestyle='--')
+    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5, choice 1', color=colorblind_palette[0])
+    ax[1].plot(conc_threshold_ls, nn5_acc_2, label='NN5, choice 1+2', color=colorblind_palette[0], linestyle='--')
+    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color=colorblind_palette[1])
+    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color=colorblind_palette[2])
+    ax[1].plot(conc_threshold_ls, bl_acc_2, label='NN2, choice 1+2', color=colorblind_palette[2], linestyle='--')
 
     ax[1].set_xlabel('Concurrence Threshold')
     ax[1].set_ylabel('Accuracy')
     ax[1].legend()
     ax[1].set_title("States with $W \geq 0$ and $\operatorname{min}\{W'\} < 0$")
 
-    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5, choice 1', color='blue')
-    ax[0].plot(conc_threshold_ls, nn5_frac_2, label='NN5, choice 1+2', color='blue', linestyle='--')
-    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color='red')
-    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2, choice 1', linestyle=(0, (5,10)), color='gold')
-    ax[0].plot(conc_threshold_ls, bl_frac_2, label='NN2, choice 1+2', color='gold', linestyle='--')
+    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5, choice 1', color=colorblind_palette[0])
+    ax[0].plot(conc_threshold_ls, nn5_frac_2, label='NN5, choice 1+2', color=colorblind_palette[0], linestyle='--')
+    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color=colorblind_palette[1])
+    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2, choice 1', linestyle=(0, (5,10)), color=colorblind_palette[2])
+    ax[0].plot(conc_threshold_ls, bl_frac_2, label='NN2, choice 1+2', color = colorblind_palette[2], linestyle='--')
 
-    ax[0].plot(conc_threshold_ls, w_frac, label='W', color='purple', linestyle='dotted')
-    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color='orange', linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, w_frac, label='W', color=colorblind_palette[3], linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color=colorblind_palette[4], linestyle='dotted')
 
     ax[0].set_xlabel('Concurrence Threshold')
     ax[0].set_ylabel('Fraction of Undetected States')
@@ -702,26 +704,25 @@ def plot_comp_acc_simple(steps=50, gen=True):
     plt.tight_layout()
     plt.savefig(join('random_gen', 'models', f'comp_acc_{steps}_labels.pdf'))
 
-    # plot again, no labels
     fig, ax = plt.subplots(1, 2, figsize=(10,5))
-    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5, choice 1', color='blue')
-    ax[1].plot(conc_threshold_ls, nn5_acc_2, label='NN5, choice 1+2', color='blue', linestyle='--')
-    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color='red')
-    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color='gold')
-    ax[1].plot(conc_threshold_ls, bl_acc_2, label='NN2, choice 1+2', color='gold', linestyle='--')
+    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5, choice 1', color=colorblind_palette[0])
+    ax[1].plot(conc_threshold_ls, nn5_acc_2, label='NN5, choice 1+2', color=colorblind_palette[0], linestyle='--')
+    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color=colorblind_palette[1])
+    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color=colorblind_palette[2])
+    ax[1].plot(conc_threshold_ls, bl_acc_2, label='NN2, choice 1+2', color=colorblind_palette[2], linestyle='--')
 
     ax[1].set_xlabel('Concurrence Threshold')
     ax[1].set_ylabel('Accuracy')
     ax[1].set_title("States with $W \geq 0$ and $\operatorname{min}\{W'\} < 0$")
 
-    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5, choice 1', color='blue')
-    ax[0].plot(conc_threshold_ls, nn5_frac_2, label='NN5, choice 1+2', color='blue', linestyle='--')
-    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color='red')
-    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2, choice 1', linestyle=(0, (5,10)), color='gold')
-    ax[0].plot(conc_threshold_ls, bl_frac_2, label='NN2, choice 1+2', color='gold', linestyle='--')
+    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5, choice 1', color=colorblind_palette[0])
+    ax[0].plot(conc_threshold_ls, nn5_frac_2, label='NN5, choice 1+2', color=colorblind_palette[0], linestyle='--')
+    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color=colorblind_palette[1])
+    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2, choice 1', linestyle=(0, (5,10)), color=colorblind_palette[2])
+    ax[0].plot(conc_threshold_ls, bl_frac_2, label='NN2, choice 1+2', color = colorblind_palette[2], linestyle='--')
 
-    ax[0].plot(conc_threshold_ls, w_frac, label='W', color='purple', linestyle='dotted')
-    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color='orange', linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, w_frac, label='W', color=colorblind_palette[3], linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color=colorblind_palette[4], linestyle='dotted')
 
     ax[0].set_xlabel('Concurrence Threshold')
     ax[0].set_ylabel('Fraction of Undetected States')
@@ -733,22 +734,51 @@ def plot_comp_acc_simple(steps=50, gen=True):
     plt.savefig(join('random_gen', 'models', f'comp_acc_{steps}_nolabels.pdf'))
 
 
-    # plot again, no labels
     fig, ax = plt.subplots(1, 2, figsize=(10,5))
-    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5, choice 1', color='blue')
-    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color='red')
-    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color='gold')
+    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5', color=colorblind_palette[0])
+    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color=colorblind_palette[1])
+    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color=colorblind_palette[2])
 
     ax[1].set_xlabel('Concurrence Threshold')
     ax[1].set_ylabel('Accuracy')
     ax[1].set_title("States with $W \geq 0$ and $\operatorname{min}\{W'\} < 0$")
 
-    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5, choice 1', color='blue')
-    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color='red')
-    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2, choice 1', linestyle=(0, (5,10)), color='gold')
+    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5', color=colorblind_palette[0])
+    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color=colorblind_palette[1])
+    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2', linestyle=(0, (5,10)), color=colorblind_palette[2])
 
-    ax[0].plot(conc_threshold_ls, w_frac, label='W', color='purple', linestyle='dotted')
-    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color='orange', linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, w_frac, label='W', color=colorblind_palette[3], linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color=colorblind_palette[4], linestyle='dotted')
+
+    ax[0].set_xlabel('Concurrence Threshold')
+    ax[0].set_ylabel('Fraction of Undetected States')
+    ax[0].set_title('All Entangled States')
+
+    ax[0].legend()
+    ax[1].legend()
+
+    plt.suptitle(f"Comparison of $W'$ Model Performance")
+
+    plt.tight_layout()
+    plt.savefig(join('random_gen', 'models', f'comp_acc_{steps}_labels_only1.pdf'))
+
+
+    fig, ax = plt.subplots(1, 2, figsize=(10,5))
+    ax[1].plot(conc_threshold_ls, nn5_acc_1, label='NN5', color=colorblind_palette[0])
+    ax[1].plot(conc_threshold_ls, pop_acc, label='Population', color=colorblind_palette[1])
+    ax[1].plot(conc_threshold_ls, bl_acc_1, label='NN2', color=colorblind_palette[2])
+
+    ax[1].set_xlabel('Concurrence Threshold')
+    ax[1].set_ylabel('Accuracy')
+    ax[1].set_title("States with $W \geq 0$ and $\operatorname{min}\{W'\} < 0$")
+
+    ax[0].plot(conc_threshold_ls, nn5_frac_1, label='NN5', color=colorblind_palette[0])
+    ax[0].plot(conc_threshold_ls, pop_frac, label='Population', color=colorblind_palette[1])
+    ax[0].plot(conc_threshold_ls, bl_frac_1, label='NN2', linestyle=(0, (5,10)), color=colorblind_palette[2])
+
+    ax[0].plot(conc_threshold_ls, w_frac, label='W', color=colorblind_palette[3], linestyle='dotted')
+    ax[0].plot(conc_threshold_ls, wp_frac, label='W\'', color=colorblind_palette[4], linestyle='dotted')
+
 
     ax[0].set_xlabel('Concurrence Threshold')
     ax[0].set_ylabel('Fraction of Undetected States')
@@ -758,6 +788,8 @@ def plot_comp_acc_simple(steps=50, gen=True):
 
     plt.tight_layout()
     plt.savefig(join('random_gen', 'models', f'comp_acc_{steps}_nolabels_only1.pdf'))
+
+
 
          
 def comp_random(num_repeat=10000, conc_threshold=0):
@@ -781,8 +813,6 @@ def comp_random(num_repeat=10000, conc_threshold=0):
     # get std accuracy
     sem_acc = np.std(mean_acc) / np.sqrt(num_repeat)
     print(f'For concurrence threshold {conc_threshold}, {num_repeat} entries, mean accuracy: {np.mean(mean_acc)}+- {np.mean(sem_acc)}')
-
-
 
 def display_model(model):
     '''Display keras model architecture
@@ -814,7 +844,10 @@ if __name__ == '__main__':
 
     ## load models ##
 
-    comp_random()
+    # test_lynn()
+    plot_comp_acc_simple(steps=50, gen=False)
+
+    # comp_random()
     # new models ---
     # xgb = XGBRegressor()
     # xgb.load_model(join(new_model_path, 'r4_s0_0_w_prob_9_xgb_all.json'))
